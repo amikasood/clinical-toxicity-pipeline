@@ -1,0 +1,2 @@
+# Prefer pyproject.toml for dependency management.
+# Add runtime packages here only if your workflow needs pip -r requirements.txt.

@@ -1,0 +1,39 @@
+1) Create and enter the project folder
+mkdir c:\amika\personal\AI_ML\clinical-toxicity-pipeline
+cd c:\amika\personal\AI_ML\clinical-toxicity-pipeline
+2) Create a virtual environment
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+3) Make the folder structure
+mkdir src
+mkdir src\clinical_toxicity_pipeline
+mkdir tests
+ni pyproject.toml
+ni .gitignore
+ni requirements.txt
+ni README.md
+ni src\clinical_toxicity_pipeline\__init__.py
+ni src\clinical_toxicity_pipeline\main.py
+ni tests\test_main.py
+4) Add project metadata
+Put build/dependency config in pyproject.toml.
+Include:
+package name (clinical-toxicity-pipeline)
+Python version (>=3.10)
+dev tools (pytest, ruff)
+CLI script mapping, e.g. clinical-toxicity = "clinical_toxicity_pipeline.main:run"
+5) Add minimal runnable code
+In src/clinical_toxicity_pipeline/__init__.py: add a small function like build_status_message(...).
+In src/clinical_toxicity_pipeline/main.py: add argparse CLI and run().
+6) Add one test early
+In tests/test_main.py: import your function and assert expected behavior.
+This proves your structure works before real pipeline logic is added.
+7) Install and run locally
+pip install -e ".[dev]"
+clinical-toxicity --dataset tox21
+pytest
+8) Keep project hygiene from day one
+Use .gitignore for .venv, caches, and editor files.
+Keep code under src/ and tests under tests/.
+Add dependencies in pyproject.toml (or mirror in requirements.txt if your workflow needs it).
