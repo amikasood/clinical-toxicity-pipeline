@@ -1,0 +1,54 @@
+Metadata-Version: 2.4
+Name: clinical-toxicity-pipeline
+Version: 0.1.0
+Summary: Starter project for clinical toxicity modeling pipelines.
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: chembl_webresource_client>=0.10.9
+Requires-Dist: pandas>=2.0
+Requires-Dist: requests>=2.31
+Requires-Dist: torch>=2.0
+Requires-Dist: numpy>=1.24
+Requires-Dist: xgboost>=2.0
+Provides-Extra: dev
+Requires-Dist: pandas-stubs>=2.0; extra == "dev"
+Requires-Dist: pytest>=8.0; extra == "dev"
+Requires-Dist: ruff>=0.6.0; extra == "dev"
+
+# Clinical Toxicity Pipeline
+
+Starter Python project scaffold for building data and modeling pipelines.
+
+## Quick start (PowerShell)
+
+```powershell
+cd c:\amika\personal\AI_ML\clinical-toxicity-pipeline
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+pip install -e ".[dev]"
+clinical-toxicity --dataset tox21
+pytest
+```
+
+## Project structure
+
+```text
+clinical-toxicity-pipeline/
+  pyproject.toml
+  requirements.txt
+  README.md
+  src/
+    clinical_toxicity_pipeline/
+      __init__.py
+      main.py
+  tests/
+    test_main.py
+```
+
+## What to add next
+
+- Add data ingestion code under `src/clinical_toxicity_pipeline/`.
+- Add configuration handling (`.env`, YAML, or argparse subcommands).
+- Add notebooks in a separate `notebooks/` folder if needed.
+- Expand tests as you add pipeline stages.

@@ -1,0 +1,11 @@
+chembl_webresource_client>=0.10.9
+pandas>=2.0
+requests>=2.31
+torch>=2.0
+numpy>=1.24
+xgboost>=2.0
+
+[dev]
+pandas-stubs>=2.0
+pytest>=8.0
+ruff>=0.6.0

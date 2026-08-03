@@ -8,7 +8,7 @@ csv_path = PROJECT_ROOT / "data" / "raw" / "top_50_icu_drugs.csv"
 
 # Read drug target list from a csv file data/raw/top_50_icu_drugs.csv and an empty Dictionary
 #drug_targets = ['aspirin', 'ibuprofen', 'acetaminophen', 'lisinopril', 'metformin']
-drug_targets = pd.read_csv(csv_path)['drug'].dropna().tolist()
+drug_targets = pd.read_csv(csv_path)['drug'].dropna().to_list()
 drug_smiles_dict = {}
 
 print(f"Successfully read {len(drug_targets)} drug targets from the csv file")

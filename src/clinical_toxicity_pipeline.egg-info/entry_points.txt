@@ -1,0 +1,2 @@
+[console_scripts]
+clinical-toxicity = clinical_toxicity_pipeline.main:run
