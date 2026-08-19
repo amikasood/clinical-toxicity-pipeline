@@ -3,7 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score, average_precision_score, PrecisionRecallDisplay
 import matplotlib.pyplot as plt
 
-def run_xgboost(X, y):
+def run_xgboost(X_train, y_train, X_test, y_test):
     '''
     Trains and evaluates the XGBoost model
     Parameters
@@ -12,7 +12,7 @@ def run_xgboost(X, y):
     y : labels
     '''
     print("Splitting data into train and test sets")
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
+    #X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
 
     print("Training XGBoost Classifier")
     model = xgb.XGBClassifier(
