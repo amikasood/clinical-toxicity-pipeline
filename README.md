@@ -1,37 +1,51 @@
-# Clinical Toxicity Pipeline
+# Translational Risk Platform: Unified Molecular and Clinical AI
 
-Starter Python project scaffold for building data and modeling pipelines.
+## The Problem
+The pharmaceutical industry faces about a 90% failure rate for drug candidates entering clinical trials [1][2]. The direct cost of conducting Phase II studies can range from $7 million to nearly $20 million per trial, with overall failed drug development costing billions [3]. A major reason is that traditionally risk assessment is partitioned between cheminformaticians who evaluate the 2D/3D molecular structure for toxicity, and clinical biostatisticians who evaluate the trial protocol for patient cohort risks. Both of these evaluations tend to be carried out in silos.     
 
-## Quick start (PowerShell)
+**The Solution:** This project bridges the translational gap. This AI pipeline takes a proposed drug's SMILES string and its Phase II/III clinical trial protocol, and generates a unified risk score that predicts the likelihood of trial failure due to adverse events (specifically hepatotoxicity).
 
-```powershell
-cd c:\amika\personal\AI_ML\clinical-toxicity-pipeline
-py -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-pip install -e ".[dev]"
-clinical-toxicity --dataset tox21
-pytest
-```
+## How it works
+The project is divided into two phases:
+1. **The Molecular Deep Learning Engine (Chem2Clinic):** A Pytorch Geometric Graph Neural Network (GNN) that ingests 2D molecular graphs to predict structural toxicity. *(In Development)*
+2. **Clinical AI Agent (TrialGraph):** An LLM-driven agent that parses unstructured trial protocols and synthesize a final failure risk report. *(Planned)*    
 
-## Project structure
+## Current Progress: The Baselines
+Before building the deep learning graph architecture, a baseline was established using standard tabular clinical data to prove that hospital demographics and generic flags alone are not sufficient to predict chemical toxicity.
+
+### 1. Data Engineering (SQL and BigQuery)
+Using the MIMIC-IV clinical database, a standardized clinical dataset was created with SQL.
+* Common Table Expressions (CTEs) were used to isolate first-exposure administration events across the top 200 most frequently prescribed hospital medications.
+* Performed a `LEFT JOIN` against known hepatotoxic ChEMBL IDs to create a balanced dataset containing both safe and toxic medications.
+* Mapped pre-exposure baseline lab values (ALT/AST) and calculated `Toxicity` targets based on a 3.0+ fold change.
+
+### 2. Modeling & Results
+Two baseline models were built to predict toxicity using only pre-exposure clinical features (`baseline_val`, `icu_prescription_count`, `is_target_hepatotoxic`). To prevent data leakage, post-exposure lab metrics (`peak_val` and `fold_change`) were excluded:
+* **XGBoost Classifier:** Handled severe class imbalance using `scale_pos_weight=30`. Peaked at an F1-Score of 0.06 and a PR-AUC of 0.04.
+* **PyTorch Multi-Layer Perceptron (MLP):** A standard feed-forward neural network on the tabular features. Peaked at an F1-Score of 0.00 and a PR-AUC of 0.02. 
+
+**Conclusion:** The low baseline scores prove that tabular hospital data and generic warning flags lack the necessary chemical context to predict complex adverse events. Therefore, it is necessary to use a PyTorch GNN to analyze the 2D molecular structures (SMILES) of the medications.
+
+## Repository Structure
+This project follows an industry-standard `src` layout:
 
 ```text
 clinical-toxicity-pipeline/
-  pyproject.toml
-  requirements.txt
-  README.md
-  src/
-    clinical_toxicity_pipeline/
-      __init__.py
-      main.py
-  tests/
-    test_main.py
-```
+├── data/
+│   └── raw/                            # (Ignored in Git) Raw CSV extracts from MIMIC-IV and ChEMBL
+├── sql/
+│   └── create_toxicity_labels.sql      # BigQuery SQL for dynamic cohort generation
+├── main.py                             # CLI Orchestrator for the pipeline
+└── src/
+    └── clinical_toxicity_pipeline/
+        ├── api_clients.py              # Scripts to pull SMILES and target data via ChEMBL API
+        ├── data_preparation.py         # Pandas logic for merging and cleaning clinical datasets
+        ├── xgboost.py                  # Classical ML baseline and evaluation metrics
+        └── dl_model.py                 # PyTorch deep learning architecture (MLP & GNN WIP)
 
-## What to add next
 
-- Add data ingestion code under `src/clinical_toxicity_pipeline/`.
-- Add configuration handling (`.env`, YAML, or argparse subcommands).
-- Add notebooks in a separate `notebooks/` folder if needed.
-- Expand tests as you add pipeline stages.
+
+
+
+
+
