@@ -42,7 +42,23 @@ clinical-toxicity-pipeline/
         ├── data_preparation.py         # Pandas logic for merging and cleaning clinical datasets
         ├── xgboost.py                  # Classical ML baseline and evaluation metrics
         └── dl_model.py                 # PyTorch deep learning architecture (MLP & GNN WIP)
+```
 
+## Execution
+Pipeline actions are controlled via the primary command-line interface:
+
+```
+Bash
+
+# Extract molecular SMILES descriptors via ChEMBL API
+python main.py --action fetch_data
+
+# Execute XGBoost baseline evaluation
+python main.py --action train_xgb
+
+# Execute PyTorch tabular MLP baseline evaluation
+python main.py --action train_pytorch
+```
 
 
 
