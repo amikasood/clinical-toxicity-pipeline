@@ -60,8 +60,12 @@ python main.py --action train_xgb
 python main.py --action train_pytorch
 ```
 
+References
+1. DrugPatentWatch. "Beyond the Balance Sheet: Using Patent Data to De-Risk Pharma Investments." DrugPatentWatch, 12 Feb. 2026, https://www.drugpatentwatch.com/blog/beyond-the-balance-sheet-using-patent-data-to-de-risk-pharma-investments/.
 
+2. Adefolaju, Adebimpe et al. “Informing development of brain cancer therapies within "preclinical trials" using ex vivo patient tumors.” Advanced drug delivery reviews vol. 228 (2026): 115736. doi:10.1016/j.addr.2025.115736
 
+3. "Clinical Trial Failures - Losses of 2016." TrialX, 28 Mar. 2017, https://trialx.com/clinical-trial-failures-losses-of-2016/.
 
 
 
